@@ -6,6 +6,10 @@ import { CSpinner, useColorModes } from '@coreui/react'
 import './scss/style.scss'
 import AllUsers from './views/pages/users/AllUsers'
 import AllVendors from './views/pages/vendors/AllVendors'
+import CreateVendor from './views/pages/vendors/CreateVendor'
+import CreateUser from './views/pages/users/CreateUser'
+import KycDetails from './views/pages/vendors/KycDetails'
+import AddCategory from './views/pages/vendors/AddCategory'
 // Containers
 const DefaultLayout = React.lazy(() => import('./layout/DefaultLayout'))
 
@@ -42,7 +46,12 @@ const App = () => {
           <Route exact path="/login" name="Login Page" element={<Login />} />
           <Route exact path="/404" name="Page 404" element={<Page404 />} />
           <Route path='/users' element={<AllUsers />} />
+          <Route path='/user/create' element={<CreateUser />} />
           <Route path='/vendors' element={<AllVendors />} />
+          <Route path='/vendor/create' element={<CreateVendor />} />
+          <Route path='/vendor/kyc/:id' element={<KycDetails />} />
+          <Route path='/category' element={<AddCategory />} />
+
           
           <Route path="*" name="Home" element={<DefaultLayout />} />
         </Routes>

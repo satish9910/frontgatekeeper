@@ -24,7 +24,6 @@ const AppSidebar = () => {
     <CSidebar
       className="border-end"
       colorScheme="dark"
-      size='md'
       position="fixed"
       unfoldable={unfoldable}
       visible={sidebarShow}

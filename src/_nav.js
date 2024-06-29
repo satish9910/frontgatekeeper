@@ -26,6 +26,12 @@ const _nav = [
     icon: <CIcon icon={cilDrop} customClassName="nav-icon" />,
   },
   {
+    component: CNavItem,
+    name: 'Create User',
+    to: '/user/create',
+    icon: <CIcon icon={cilDrop} customClassName="nav-icon" />,
+  },
+  {
     component: CNavTitle,
     name: 'Vendors',
   },
@@ -39,6 +45,12 @@ const _nav = [
     component: CNavItem,
     name: 'Create Vendor',
     to: '/vendor/create',
+    icon: <CIcon icon={cilDrop} customClassName="nav-icon" />,
+  },
+  {
+    component: CNavItem,
+    name: 'Add Category',
+    to: '/category',
     icon: <CIcon icon={cilDrop} customClassName="nav-icon" />,
   },
 ]
