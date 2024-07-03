@@ -3,20 +3,37 @@ import React, { useEffect, useMemo, useState } from 'react'
 import { Link } from 'react-router-dom';
 import { MantineReactTable, useMantineReactTable } from 'mantine-react-table';
 import CIcon from '@coreui/icons-react';
-import { cilCheck, cilPaperPlane } from '@coreui/icons';
+import { cilPaperPlane, cilTrash } from '@coreui/icons';
 import { AppSidebar, AppHeader } from '../../../components/index'
 
 const AllUsers = () => {
     const [services, setServices] = useState([]);
     const token = localStorage.getItem('token')
     async function getUsers() {
-        const res = await axios.get(`${import.meta.env.VITE_BASE_URL}admin/FetchAllUsers`, {
+        const res = await axios.get(`${import.meta.env.VITE_BASE_URL}admin/getAllUsers`, {
             headers: {
                 Authorization: `Bearer ${token}`
             }
         })
         const ser = res.data.users;
         setServices(ser);
+    }
+
+    async function handleDelete(id) {
+        const confirmed = confirm('Confirm to delete?')
+        if (confirmed) {
+            const res = await axios.delete(`${import.meta.env.VITE_BASE_URL}admin/deleteUserById/${id}`, {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            })
+            if (res.status === 200) {
+                getUsers()
+            }
+        }
+        else{
+            return
+        }
     }
 
     const columns = useMemo(
@@ -35,7 +52,17 @@ const AllUsers = () => {
                 header: 'Coins',
                 accessorKey: 'totalCoins',
                 size: 60,
-            }
+            },
+            {
+                header: 'Orders',
+                size: 60,
+                accessorFn: (dataRow) => <Link to={`/user/orders/${dataRow._id}`}><CIcon icon={cilPaperPlane} /></Link>
+            },
+            {
+                header: 'Delete',
+                size: 60,
+                accessorFn: (dataRow) => <CIcon icon={cilTrash} onClick={() => handleDelete(dataRow._id)} style={{cursor: 'pointer', color: "red"}}/>
+            },
         ],
         [],
     );

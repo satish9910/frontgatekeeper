@@ -1,11 +1,13 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { AppSidebar, AppHeader } from '../../../components/index'
 import { CForm, CFormInput, CFormLabel } from '@coreui/react'
-import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
+import CIcon from '@coreui/icons-react'
+import { cilTrash } from '@coreui/icons'
 
 const AddCategory = () => {
     const [formData, setFormData] = useState({})
+    const [categories, setCategories] = useState([])
     const token = localStorage.getItem('token')
 
     function handleChange(e) {
@@ -37,7 +39,7 @@ const AddCategory = () => {
         formDataToSend.append('endcolor', formData.endcolor)
         formDataToSend.append('icon', formData.icon)
 
-        
+
         const res = await axios.post(`${import.meta.env.VITE_BASE_URL}admin/addCatergory`, formDataToSend, {
             headers: {
                 'content-type': 'multipart/form-data',
@@ -47,11 +49,39 @@ const AddCategory = () => {
         console.log(res);
         if (res.status === 200) {
             alert('Added')
-            return 
+            return
         }
         alert('Not added')
         return
     }
+
+    async function getCategories() {
+        const res = await axios.get(`${import.meta.env.VITE_BASE_URL}admin/getAllCatergories`, {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        })
+        setCategories(res.data.catergories)
+    }
+
+    async function handleDelete(id) {
+        const res = await axios.delete(`${import.meta.env.VITE_BASE_URL}admin/deleteCatergory/${id}`, {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        })
+        if (res.status === 200) {
+            alert('Deleted')
+            getCategories()
+            return
+        }
+        alert('Not Deleted')
+        return
+    }
+
+    useEffect(() => {
+        getCategories()
+    }, [])
 
     return (
         <>
@@ -108,6 +138,22 @@ const AddCategory = () => {
                                     </button>
                                 </CForm>
                             </div>
+                        </div>
+                        <div className='mb-4'>
+                            <h4 className='mb-2 mt-4'>ALL CATEGORIES</h4>
+                            <div className='row gap-4'>
+                                {
+                                    categories?.map((item, index) => (
+                                        <div key={index} className="card mb-2 col-12 col-sm-6 col-md-4 col-lg-3 col-xl-2">
+                                            <div className="card-body">
+                                                <h6 className="card-title">{item.catergorytype}</h6>
+                                                <button className="btn btn-danger text-white" onClick={() => handleDelete(item._id)}><CIcon icon={cilTrash} /></button>
+                                            </div>
+                                        </div>
+                                    ))
+                                }
+                            </div>
+
                         </div>
                     </div>
                 </div>

@@ -15,14 +15,14 @@ const Dashboard = () => {
   useEffect(() => {
     async function fetchUsersAndVendors() {
       const token = localStorage.getItem('token')
-      const users = await axios.get(`${import.meta.env.VITE_BASE_URL}admin/fetchAllUsers`, {
+      const users = await axios.get(`${import.meta.env.VITE_BASE_URL}admin/getAllUsers`, {
         headers: {
           Authorization: `Bearer ${token}`
         }
       })
       console.log();
       setTotalUsers(users.data.users.length)
-      const vendors = await axios.get(`${import.meta.env.VITE_BASE_URL}admin/fetchAllVendors`, {
+      const vendors = await axios.get(`${import.meta.env.VITE_BASE_URL}admin/getAllVendors`, {
         headers: {
           Authorization: `Bearer ${token}`
         }

@@ -3,20 +3,37 @@ import React, { useEffect, useMemo, useState } from 'react'
 import { Link } from 'react-router-dom';
 import { MantineReactTable, useMantineReactTable } from 'mantine-react-table';
 import CIcon from '@coreui/icons-react';
-import { cilCheck, cilPaperPlane } from '@coreui/icons';
+import { cilCheck, cilPaperPlane, cilTrash } from '@coreui/icons';
 import { AppSidebar, AppHeader } from '../../../components/index'
 
 const AllVendors = () => {
     const [services, setServices] = useState([]);
     const token = localStorage.getItem('token')
     async function getUsers() {
-        const res = await axios.get(`${import.meta.env.VITE_BASE_URL}admin/FetchAllVendors`, {
+        const res = await axios.get(`${import.meta.env.VITE_BASE_URL}admin/getAllVendors`, {
             headers: {
                 Authorization: `Bearer ${token}`
             }
         })
         const ser = res.data.vendors;
         setServices(ser);
+    }
+
+    async function handleDelete(id) {
+        const confirmed = confirm('Confirm to delete?')
+        if (confirmed) {
+            const res = await axios.delete(`${import.meta.env.VITE_BASE_URL}admin/deleteVendorById/${id}`, {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            })
+            if (res.status === 200) {
+                getUsers()
+            }
+        }
+        else {
+            return
+        }
     }
 
     const columns = useMemo(
@@ -40,6 +57,11 @@ const AllVendors = () => {
                 header: 'Kyc',
                 size: 60,
                 accessorFn: (dataRow) => <Link to={`/vendor/kyc/${dataRow._id}`} style={{ textDecoration: 'none' }}><CIcon icon={cilPaperPlane} /></Link>,
+            },
+            {
+                header: 'Delete',
+                size: 60,
+                accessorFn: (dataRow) => <CIcon icon={cilTrash} onClick={() => handleDelete(dataRow._id)} style={{ cursor: 'pointer', color: "red" }} />
             },
         ],
         [],

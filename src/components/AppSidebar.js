@@ -14,6 +14,7 @@ import { AppSidebarNav } from './AppSidebarNav'
 
 // sidebar nav config
 import navigation from '../_nav'
+import AppFooter from './AppFooter'
 
 const AppSidebar = () => {
   const dispatch = useDispatch()
@@ -45,6 +46,7 @@ const AppSidebar = () => {
         />
       </CSidebarHeader>
       <AppSidebarNav items={navigation} />
+      <AppFooter />
     </CSidebar>
   )
 }

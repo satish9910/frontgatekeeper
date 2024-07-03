@@ -10,6 +10,11 @@ import CreateVendor from './views/pages/vendors/CreateVendor'
 import CreateUser from './views/pages/users/CreateUser'
 import KycDetails from './views/pages/vendors/KycDetails'
 import AddCategory from './views/pages/vendors/AddCategory'
+import Faq from './views/pages/others/faq'
+import AboutUs from './views/pages/others/about'
+import Coupon from './views/pages/others/Coupon'
+import Sos from './views/pages/others/Sos'
+import Orders from './views/pages/users/Orders'
 // Containers
 const DefaultLayout = React.lazy(() => import('./layout/DefaultLayout'))
 
@@ -51,6 +56,11 @@ const App = () => {
           <Route path='/vendor/create' element={<CreateVendor />} />
           <Route path='/vendor/kyc/:id' element={<KycDetails />} />
           <Route path='/category' element={<AddCategory />} />
+          <Route path='/faq' element={<Faq />} />
+          <Route path='/about' element={<AboutUs />} />
+          <Route path='/coupon' element={<Coupon />} />
+          <Route path='/sos' element={<Sos />} />
+          <Route path='/user/orders/:id' element={<Orders />} />
 
           
           <Route path="*" name="Home" element={<DefaultLayout />} />
