@@ -84,8 +84,8 @@ const KycDetails = () => {
 
                                 </CListGroup>
 
-                                <div style={{ width: '300px' }}>
-                                    <img src={document.path} alt="kyc" width={'100%'} height={'auto'} />
+                                <div style={{ width: '350px' }}>
+                                    <img src={`http://103.189.172.112:5000`+ document.path} alt="kyc" width={'100%'}  />
                                 </div>
 
                             </div>
