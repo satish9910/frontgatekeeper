@@ -100,7 +100,7 @@ const KycDetails = () => {
                         {
                             details._id && details.status === 'completed' &&
                             <div className=" mt-5">
-                            <h4>User Verified</h4>
+                            <h4>User Is Verified</h4>
                         </div>
                         }
                     </div>
