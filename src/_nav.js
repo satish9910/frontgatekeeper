@@ -75,12 +75,12 @@ const _nav = [
     to: '/coupon',
     icon: <CIcon icon={cilDrop} customClassName="nav-icon" />,
   },
-  {
-    component: CNavItem,
-    name: 'SOS',
-    to: '/sos',
-    icon: <CIcon icon={cilDrop} customClassName="nav-icon" />,
-  },
+  // {
+  //   component: CNavItem,
+  //   name: 'SOS',
+  //   to: '/sos',
+  //   icon: <CIcon icon={cilDrop} customClassName="nav-icon" />,
+  // },
 ]
 
 export default _nav
