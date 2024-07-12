@@ -177,7 +177,6 @@ const Coupon = () => {
                                     ))
                                 }
                             </div>
-
                         </div>
                     </div>
                 </div>
