@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { AppSidebar, AppHeader } from '../../../components/index'
 import axios from 'axios'
-import { CForm, CFormInput, CFormLabel } from '@coreui/react'
+import { CForm, CFormInput, CFormLabel, CFormTextarea } from '@coreui/react'
 import CIcon from '@coreui/icons-react'
 import { cilTrash } from '@coreui/icons'
 
@@ -105,11 +105,41 @@ const Coupon = () => {
                                         />
                                     </div>
                                     <div className="mb-3">
+                                        <CFormLabel htmlFor="couponName" className="form-label">NAME</CFormLabel>
+                                        <CFormInput
+                                            type="text"
+                                            name="couponName"
+                                            placeholder="Coupon Name"
+                                            className="form-control"
+                                            onChange={handleChange}
+                                        />
+                                    </div>
+                                    <div className="mb-3">
+                                        <CFormLabel htmlFor="couponName" className="form-label">DESCRIPTION</CFormLabel>
+                                        <CFormTextarea
+                                            type="text"
+                                            name="couponDescription"
+                                            placeholder="Coupon Description"
+                                            className="form-control"
+                                            onChange={handleChange}
+                                        />
+                                    </div>
+                                    <div className="mb-3">
                                         <CFormLabel htmlFor="coupon" className="form-label">Discount (%)</CFormLabel>
                                         <CFormInput
                                             type="number"
                                             name="discountPercentage"
                                             placeholder="Discount Percentage (Ex- 10)"
+                                            className="form-control"
+                                            onChange={handleChange}
+                                        />
+                                    </div>
+                                    <div className="mb-3">
+                                        <CFormLabel htmlFor="validityInDays" className="form-label mr-4">Validity</CFormLabel>
+                                        <CFormInput
+                                            type="number"
+                                            name="validityInDays"
+                                            placeholder="Validity (days)"
                                             className="form-control"
                                             onChange={handleChange}
                                         />
