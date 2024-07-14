@@ -49,8 +49,14 @@ const _nav = [
   },
   {
     component: CNavItem,
-    name: 'Add Category',
+    name: 'Category',
     to: '/category',
+    icon: <CIcon icon={cilDrop} customClassName="nav-icon" />,
+  },
+  {
+    component: CNavItem,
+    name: 'Sub Category',
+    to: '/subcategory',
     icon: <CIcon icon={cilDrop} customClassName="nav-icon" />,
   },
   {

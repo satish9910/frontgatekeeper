@@ -152,7 +152,7 @@ const Coupon = () => {
                         </div>
                         <div className='mb-4 mt-2'>
                             <h4 className='mb-4 mt-4'>COUPONS LIST</h4>
-                            <div className='row gap-4'>
+                            <div className='row gap-4 mx-2'>
                                 {
                                     coupons.map((item, index) => (
                                         <div key={index} className="card mb-2 col-12 col-sm-6 col-md-4">

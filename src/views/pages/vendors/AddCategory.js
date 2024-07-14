@@ -3,7 +3,8 @@ import { AppSidebar, AppHeader } from '../../../components/index'
 import { CForm, CFormInput, CFormLabel } from '@coreui/react'
 import axios from 'axios'
 import CIcon from '@coreui/icons-react'
-import { cilTrash } from '@coreui/icons'
+import { cilPencil, cilTrash } from '@coreui/icons'
+import { Link } from 'react-router-dom'
 
 const AddCategory = () => {
     const [formData, setFormData] = useState({})
@@ -140,20 +141,24 @@ const AddCategory = () => {
                             </div>
                         </div>
                         <div className='mb-4'>
-                            <h4 className='mb-2 mt-4'>ALL CATEGORIES</h4>
-                            <div className='row gap-4'>
+                            <h4 className='mb-4 mt-4'>ALL CATEGORIES</h4>
+                            <div className='row gap-4 mx-2'>
                                 {
                                     categories?.map((item, index) => (
                                         <div key={index} className="card mb-2 col-12 col-sm-6 col-md-4 col-lg-3 col-xl-2">
                                             <div className="card-body">
                                                 <h6 className="card-title">{item.catergorytype}</h6>
-                                                <button className="btn btn-danger text-white" onClick={() => handleDelete(item._id)}><CIcon icon={cilTrash} /></button>
+                                                <div className='d-flex justify-content-between'>
+                                                    <Link to={`/edit/${item._id}`} className="btn btn-primary text-white">
+                                                        +
+                                                    </Link>
+                                                    <button className="btn btn-danger text-white" onClick={() => handleDelete(item._id)}><CIcon icon={cilTrash} /></button>
+                                                </div>
                                             </div>
                                         </div>
                                     ))
                                 }
                             </div>
-
                         </div>
                     </div>
                 </div>
