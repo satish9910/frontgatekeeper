@@ -3,7 +3,7 @@ import React, { useEffect, useMemo, useState } from 'react'
 import { Link } from 'react-router-dom';
 import { MantineReactTable, useMantineReactTable } from 'mantine-react-table';
 import CIcon from '@coreui/icons-react';
-import { cilCheck, cilPaperPlane, cilTrash } from '@coreui/icons';
+import { cilCheck, cilPaperPlane, cilTrash, cilWeightlifitng } from '@coreui/icons';
 import { AppSidebar, AppHeader } from '../../../components/index'
 
 const AllVendors = () => {
@@ -48,6 +48,15 @@ const AllVendors = () => {
                 accessorKey: 'email',
                 size: 150,
             },
+            {
+                header: 'Services',
+                accessorFn: (dataRow) => (
+                    <Link to={`/vendor/getAllServicesByVendorId/${dataRow._id}`} style={{ textDecoration: 'none' }}>
+                        <CIcon icon={cilWeightlifitng} />
+                    </Link>
+                ),
+            },
+            
             {
                 header: 'Verified',
                 accessorFn: (dataRow) => dataRow.isKycCompleted ? <CIcon icon={cilCheck} /> : '',

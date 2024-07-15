@@ -15,6 +15,7 @@ const KycDetails = () => {
                 Authorization: `Bearer ${token}`
             }
         })
+        console.log(res.data);
         setDetails(res.data.kyc)
         setDocument(res.data.kyc.document[0])
     }

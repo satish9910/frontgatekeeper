@@ -9,6 +9,7 @@ import AllVendors from './views/pages/vendors/AllVendors'
 import CreateVendor from './views/pages/vendors/CreateVendor'
 import CreateUser from './views/pages/users/CreateUser'
 import KycDetails from './views/pages/vendors/KycDetails'
+import ServicesDetails  from './views/pages/vendors/ServicesDetails'
 import AddCategory from './views/pages/vendors/AddCategory'
 import Faq from './views/pages/others/faq'
 import AboutUs from './views/pages/others/about'
@@ -57,6 +58,7 @@ const App = () => {
           <Route path='/vendors' element={<AllVendors />} />
           <Route path='/vendor/create' element={<CreateVendor />} />
           <Route path='/vendor/kyc/:id' element={<KycDetails />} />
+          <Route path='/vendor/getAllServicesByVendorId/:id' element={<ServicesDetails />} />
           <Route path='/category' element={<AddCategory />} />
           <Route path='/edit/:id' element={<EditCategory />} />
           <Route path='/subcategory' element={<SubCategory />} />

@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import { AppSidebar, AppHeader } from '../../../components/index'
-import { CForm, CFormInput, CFormLabel } from '@coreui/react'
+import { CForm, CFormInput, CFormLabel, CFormSelect } from '@coreui/react'
 import axios from 'axios'
 
 const SubCategory = () => {
+     const [catergories, setCategories] = useState([]);
     const [subcategories, setSubCategories] = useState([])
     const [category, setCategory] = useState('')
     const [item, setItem] = useState('')
@@ -23,25 +24,52 @@ const SubCategory = () => {
                 Authorization: `Bearer ${token}`
             }
         })
-        if(res.data.status === 200){
+        if (res.data.status === 200) {
             alert(`${item} added to ${category}`)
-        }else{
+            window.location.reload()
+        } else {
             alert(res.data.message)
         }
     }
 
     async function getSubCategories() {
-        const res = await axios.get(`${import.meta.env.VITE_BASE_URL}admin/fetchAllSubCatergory`, {
+        const res = await axios.get(`${import.meta.env.VITE_BASE_URL}admin/allSubSubCatergory`, {
             headers: {
                 Authorization: `Bearer ${token}`
             }
         })
-        setSubCategories(res.data.subCatergories)
+        // console.log(res.data);
+        setSubCategories(res.data.subSubCatergories)
     }
 
     useEffect(() => {
         getSubCategories();
     }, [])
+
+    const [selectedCategory, setSelectedCategory] = useState('');
+
+    const getCategories = async () => {
+        try {
+            const res = await axios.get(`${import.meta.env.VITE_BASE_URL}admin/getAllCatergories`, {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            });
+            console.log(res.data);
+            setCategories(res.data.catergories);
+        } catch (error) {
+            console.error('Error fetching categories:', error);
+        }
+    };
+
+    useEffect(() => {
+        getCategories();
+    }, []);
+
+    const handleCategoryChange = (e) => {
+        setSelectedCategory(e.target.value);
+    };
+
 
     return (
         <>
@@ -54,6 +82,22 @@ const SubCategory = () => {
                         <div className="row justify-content-center">
                             <div className="col-lg-4">
                                 <CForm className="p-4 rounded shadow-sm">
+                                    <div className="mb-3">
+                                        <CFormLabel htmlFor="categoriestype" className="form-label">Category</CFormLabel>
+                                        <CFormSelect
+                                            name="catergorytype"
+                                            className="form-control"
+                                            value={selectedCategory}
+                                            onChange={handleCategoryChange}
+                                        >
+                                            <option value="" disabled>Select a category</option>
+                                            {catergories?.map((category) => (
+                                                <option key={category.id} value={category.id}>
+                                                    {category.catergorytype}
+                                                </option>
+                                            ))}
+                                        </CFormSelect>
+                                    </div>
                                     <div className="mb-3">
                                         <CFormLabel htmlFor="catergorytype" className="form-label">Sub Category</CFormLabel>
                                         <CFormInput
@@ -89,6 +133,7 @@ const SubCategory = () => {
                                             <div className="card-body">
                                                 <h6 className="card-title">{item.catergoryType}</h6>
                                                 <h6 className="card-title">{item.subCatergoryType}</h6>
+                                                <h6 className="card-title">{item.subSubCatergoryType}</h6>
                                                 {/* <button className="btn btn-danger text-white" onClick={() => handleDelete(item._id)}><CIcon icon={cilTrash} /></button> */}
                                             </div>
                                         </div>
