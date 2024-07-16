@@ -18,7 +18,7 @@ const ServiceDetails = () => {
                     Authorization: `Bearer ${token}`
                 }
             });
-            console.log('Response data:', res.data);
+            // console.log('Response data:', res.data);
             setServices(res.data.services);
         } catch (error) {
             console.error('Failed to fetch service details:', error);
