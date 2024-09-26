@@ -19,6 +19,7 @@ import Orders from './views/pages/users/Orders'
 import EditCategory from './views/pages/vendors/EditCategory'
 import SubCategory from './views/pages/vendors/SubCategory'
 import City from './views/pages/others/City'
+import Complaint from './views/pages/others/Complaint'
 // Containers
 const DefaultLayout = React.lazy(() => import('./layout/DefaultLayout'))
 
@@ -66,6 +67,7 @@ const App = () => {
           <Route path='/faq' element={<Faq />} />
           <Route path='/city' element={<City />} />
           <Route path='/about' element={<AboutUs />} />
+          <Route path='/complaint' element={<Complaint />} />
           <Route path='/coupon' element={<Coupon />} />
           <Route path='/sos' element={<Sos />} />
           <Route path='/user/orders/:id' element={<Orders />} /> 
