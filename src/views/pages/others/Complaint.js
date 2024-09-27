@@ -2,8 +2,8 @@ import axios from 'axios';
 import React, { useEffect, useMemo, useState } from 'react';
 import { MantineReactTable, useMantineReactTable } from 'mantine-react-table';
 import CIcon from '@coreui/icons-react';
-import { cilPencil } from '@coreui/icons';
-import { Modal, Button, Textarea, Select } from '@mantine/core';
+import { cilCommentBubble} from '@coreui/icons';
+import { Modal,  Textarea, Select } from '@mantine/core';
 import { AppSidebar, AppHeader } from '../../../components/index';
 import dayjs from 'dayjs'; // To format dates
 
@@ -55,8 +55,13 @@ const Complaint = () => {
             },
             {
                 header: 'Complaint',
-                accessorKey: 'complaint',
+                accessorFn: (row) => (
+                    <span>
+                        {row.complaint.split(' ').slice(0, 5).join(' ')}...
+                    </span>
+                ),
                 size: 200,
+                
             },
             {
                 header: 'Created Date',
@@ -71,6 +76,7 @@ const Complaint = () => {
             {
                 header: 'Status',
                 accessorFn: (row) => (
+                
                     <Select
                         value={row.isResolved ? 'Complete' : 'Pending'}
                         onChange={(value) => handleStatusChange(row._id, value)}
@@ -83,11 +89,11 @@ const Complaint = () => {
                 size: 150,
             },
             {
-                header: 'Edit',
+                header: 'View',
                 size: 60,
                 accessorFn: (row) => (
                     <CIcon
-                        icon={cilPencil}
+                        icon={cilCommentBubble}
                         onClick={() => handleEdit(row)} // Open modal with edit data
                         style={{ cursor: 'pointer', color: 'blue' }}
                     />
@@ -125,22 +131,14 @@ const Complaint = () => {
             </div>
 
            
-            <Modal opened={opened} onClose={() => setOpened(false)} title="Edit Complaint" centered>
+            <Modal opened={opened} onClose={() => setOpened(false)}  size="md" title="View Complaint" centered>
                 {editData && (
                     <div>
                         <Textarea
-                            label="Complaint"
                             value={editData.complaint}
-                            onChange={(e) =>
-                                setEditData({ ...editData, complaint: e.target.value })
-                            }
-                            placeholder="Edit the complaint"
+                            readonly
+                            autosize
                         />
-
-                       
-                        {/* <Button onClick={() => setOpened(false)} className="mt-3">
-                            Save Changes
-                        </Button> */}
                     </div>
                 )}
             </Modal>
