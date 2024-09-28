@@ -2,19 +2,21 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { CForm, CFormInput, CFormLabel, CFormSelect } from '@coreui/react';
 import { AppSidebar, AppHeader } from '../../../components';
-import CIcon from '@coreui/icons-react'
-import { cilPencil, cilTrash } from '@coreui/icons'
-
+import CIcon from '@coreui/icons-react';
+import { cilPencil, cilTrash } from '@coreui/icons';
 
 const SubCategory = () => {
   const [categories, setCategories] = useState([]);
   const [subcategories, setSubCategories] = useState([]);
+  const [filteredSubCategories, setFilteredSubCategories] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState('');
+  const [selectedSubCategory, setSelectedSubCategory] = useState('');
   const [category, setCategory] = useState('');
   const [item, setItem] = useState('');
   const [file, setFile] = useState(null);
   const token = localStorage.getItem('token');
 
+  // Fetch categories
   useEffect(() => {
     const getCategories = async () => {
       try {
@@ -31,8 +33,36 @@ const SubCategory = () => {
     getCategories();
   }, [token]);
 
+  // Fetch subcategories
+  const getSubCategories = async () => {
+    try {
+      const response = await axios.get(`${import.meta.env.VITE_BASE_URL}admin/allSubSubCatergory`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      setSubCategories(response.data.subSubCatergories);
+    } catch (error) {
+      console.error('Error fetching subcategories:', error);
+    }
+  };
+
+  useEffect(() => {
+    getSubCategories();
+  }, [token]);
+
+  // Handle category change and filter subcategories
   const handleCategoryChange = (e) => {
-    setSelectedCategory(e.target.value);
+    const selectedCategory = e.target.value;
+    setSelectedCategory(selectedCategory);
+
+    // Filter subcategories based on the selected category
+    const filtered = subcategories.filter(subcategory => subcategory.catergoryType === selectedCategory);
+    setFilteredSubCategories(filtered);
+  };
+
+  const handleSubCategoryChange = (e) => {
+    setSelectedSubCategory(e.target.value);
   };
 
   const handleFileChange = (e) => {
@@ -74,37 +104,20 @@ const SubCategory = () => {
     }
   };
 
-  const getSubCategories = async () => {
-    try {
-      const response = await axios.get(`${import.meta.env.VITE_BASE_URL}admin/allSubSubCatergory`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-      setSubCategories(response.data.subSubCatergories);
-    } catch (error) {
-      console.error('Error fetching subcategories:', error);
-    }
-  };
-
-  useEffect(() => {
-    getSubCategories();
-  }, [token]);
-
-
+  // Handle delete item
   async function handleDelete(id) {
     const res = await axios.delete(`${import.meta.env.VITE_BASE_URL}admin/deleteSubSubCatergory/${id}`, {
-        headers: {
-            Authorization: `Bearer ${token}`
-        }
-    })
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    });
     if (res.status === 200) {
-        alert('Deleted')
-        window.location.reload()
-    }else {
-        alert(`Error: ${res.data.message}`);
+      alert('Deleted');
+      getSubCategories(); // Reload items after deletion
+    } else {
+      alert(`Error: ${res.data.message}`);
     }
-}
+  }
 
   return (
     <>
@@ -135,14 +148,19 @@ const SubCategory = () => {
                   </div>
                   <div className="mb-3">
                     <CFormLabel htmlFor="catergorytype" className="form-label">Sub Category</CFormLabel>
-                    <CFormInput
-                      type="text"
+                    <CFormSelect
                       name="catergorytype"
-                      placeholder="Sub Category"
                       className="form-control"
-                      value={category}
-                      onChange={(e) => setCategory(e.target.value)}
-                    />
+                      value={selectedSubCategory}
+                      onChange={handleSubCategoryChange}
+                    >
+                      <option value="" disabled>Select a sub category</option>
+                      {filteredSubCategories.map((subcategory) => (
+                        <option key={subcategory.id} value={subcategory.subCatergoryType}>
+                          {subcategory.subCatergoryType}
+                        </option>
+                      ))}
+                    </CFormSelect>
                   </div>
                   <div className="mb-4">
                     <label htmlFor="icon" className="form-label">Icon</label>
@@ -181,7 +199,6 @@ const SubCategory = () => {
                       <h6 className="card-title">{item.subCatergoryType}</h6>
                       <h6 className="card-title">{item.subSubCatergoryType}</h6>
                       <button className="btn btn-danger text-white" onClick={() => handleDelete(item._id)}><CIcon icon={cilTrash} /></button>
-
                     </div>
                   </div>
                 ))}
