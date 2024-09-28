@@ -3,7 +3,7 @@ import axios from 'axios';
 import { CForm, CFormInput, CFormLabel, CFormSelect } from '@coreui/react';
 import { AppSidebar, AppHeader } from '../../../components';
 import CIcon from '@coreui/icons-react';
-import { cilPencil, cilTrash } from '@coreui/icons';
+import { cilTrash } from '@coreui/icons';
 
 const SubCategory = () => {
   const [categories, setCategories] = useState([]);
@@ -58,7 +58,12 @@ const SubCategory = () => {
 
     // Filter subcategories based on the selected category
     const filtered = subcategories.filter(subcategory => subcategory.catergoryType === selectedCategory);
-    setFilteredSubCategories(filtered);
+    let uniqueSubCategories = filtered.filter((obj, index, self) =>
+      index === self.findIndex((t) => t.subCatergoryType.trim() === obj.subCatergoryType.trim())
+  );
+    console.log(uniqueSubCategories, 'uni');
+    
+    setFilteredSubCategories(uniqueSubCategories);
   };
 
   const handleSubCategoryChange = (e) => {
