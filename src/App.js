@@ -6,20 +6,20 @@ import { CSpinner, useColorModes } from '@coreui/react'
 import './scss/style.scss'
 import AllUsers from './views/pages/users/AllUsers'
 import Material from './views/pages/vendors/Material'
-import CreateVendor from './views/pages/vendors/CreateVendor'
-import CreateUser from './views/pages/users/CreateUser'
-import KycDetails from './views/pages/vendors/KycDetails'
-import ServicesDetails  from './views/pages/vendors/ServicesDetails'
-import AddCategory from './views/pages/vendors/AddCategory'
+import Stone from './views/pages/vendors/Stone'
+import Extra from './views/pages/vendors/Extra'
+
 import Faq from './views/pages/others/faq'
 import AboutUs from './views/pages/others/about'
 import Coupon from './views/pages/others/Coupon'
 import Sos from './views/pages/others/Sos'
 import Orders from './views/pages/users/Orders'
-import EditCategory from './views/pages/vendors/EditCategory'
-import SubCategory from './views/pages/vendors/SubCategory'
 import City from './views/pages/others/City'
 import Complaint from './views/pages/others/Complaint'
+import CreateUser from './views/pages/users/CreateUser'
+import DetailMaterial from './views/pages/vendors/DetailMaterial'
+import DetailStone from './views/pages/vendors/DetailStone'
+import DetailExtra from './views/pages/vendors/DetailExtra'
 // Containers
 const DefaultLayout = React.lazy(() => import('./layout/DefaultLayout'))
 
@@ -58,12 +58,11 @@ const App = () => {
           <Route path='/users' element={<AllUsers />} />
           <Route path='/user/create' element={<CreateUser />} />
           <Route path='/material' element={<Material/>} />
-          <Route path='/vendor/create' element={<CreateVendor />} />
-          <Route path='/vendor/kyc/:id' element={<KycDetails />} />
-          <Route path='/vendor/getAllServicesByVendorId/:id' element={<ServicesDetails />} />
-          <Route path='/category' element={<AddCategory />} />
-          <Route path='/edit/:id' element={<EditCategory />} />
-          <Route path='/subcategory' element={<SubCategory />} />
+          <Route path='/material/detail/:id' element={<DetailMaterial/>} />
+          <Route path='/stone/detail/:id' element={<DetailStone/>} />
+          <Route path='/extra/detail/:id' element={<DetailExtra/>} />
+          <Route path='/stone' element={<Stone/>} />
+          <Route path='/extra' element={<Extra/>} />
           <Route path='/faq' element={<Faq />} />
           <Route path='/city' element={<City />} />
           <Route path='/about' element={<AboutUs />} />

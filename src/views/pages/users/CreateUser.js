@@ -19,15 +19,15 @@ const CreateUser = () => {
 
     async function handleSubmit(e) {
         e.preventDefault()
-        if (!formData.name || !formData.employeeId || !formData.mobile || !formData.password) {
+        if (!formData.name || !formData.employeeId || !formData.phone || !formData.password) {
             alert('Please fill all fields')
             return
         }
-        if (formData.mobile.length !== 10) {
-            alert('mobile number must be 10 digits')
+        if (formData.phone.length !== 10) {
+            alert('phone number must be 10 digits')
             return
         }
-        const res = await axios.post(`${import.meta.env.VITE_BASE_URL}auth/usersignup`, formData, {
+        const res = await axios.post(`${import.meta.env.VITE_BASE_URL}auth/signup`, formData, {
             headers: {
                 Authorization: `Bearer ${token}`
             }
@@ -72,10 +72,10 @@ const CreateUser = () => {
                                         />
                                     </div>
                                     <div className="mb-4">
-                                        <label htmlFor="mobile" className="form-label">Phone No.</label>
+                                        <label htmlFor="phone" className="form-label">Phone No.</label>
                                         <input
                                             type="text"
-                                            name="mobile"
+                                            name="phone"
                                             placeholder="Phone No. (10 digits)"
                                             className="form-control"
                                             onChange={handleChange}

@@ -1,38 +1,38 @@
 import axios from 'axios';
-import React, { useEffect, useMemo, useState } from 'react'
+import React, { useEffect, useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { MantineReactTable, useMantineReactTable } from 'mantine-react-table';
 import CIcon from '@coreui/icons-react';
 import { cilPaperPlane, cilTrash } from '@coreui/icons';
-import { AppSidebar, AppHeader } from '../../../components/index'
+import { AppSidebar, AppHeader } from '../../../components/index';
 
 const AllUsers = () => {
     const [services, setServices] = useState([]);
-    const token = localStorage.getItem('token')
+    const token = localStorage.getItem('token');
+
     async function getUsers() {
-        const res = await axios.get(`${import.meta.env.VITE_BASE_URL}admin/getAllUsers`, {
+        const res = await axios.get(`${import.meta.env.VITE_BASE_URL}admin/users`, {
             headers: {
                 Authorization: `Bearer ${token}`
             }
-        })
-        const ser = res.data.users;
-        setServices(ser);
+        });
+        
+        // Assuming the response has the users array
+        const usersData = res.data.users;
+        setServices(usersData);  // Set the response users data to services
     }
 
     async function handleDelete(id) {
-        const confirmed = confirm('Confirm to delete?')
+        const confirmed = confirm('Confirm to delete?');
         if (confirmed) {
-            const res = await axios.delete(`${import.meta.env.VITE_BASE_URL}admin/deleteUserById/${id}`, {
+            const res = await axios.put(`${import.meta.env.VITE_BASE_URL}admin/switch/${id}`, {
                 headers: {
                     Authorization: `Bearer ${token}`
                 }
-            })
+            });
             if (res.status === 200) {
-                getUsers()
+                getUsers();  // Refresh the user list after deletion
             }
-        }
-        else{
-            return
         }
     }
 
@@ -40,17 +40,17 @@ const AllUsers = () => {
         () => [
             {
                 header: 'Name',
-                accessorKey: 'name',
+                accessorKey: 'name',  // Corresponds to the 'name' field in the API response
                 size: 150,
             },
             {
                 header: 'Mobile',
-                accessorKey: 'mobile',
+                accessorKey: 'phone',  // Use 'phone' instead of 'mobile' to match the response
                 size: 150,
             },
             {
                 header: 'EmployeeId',
-                accessorKey: 'employeeId',
+                accessorKey: 'employeeId',  // Assuming 'employeeId' exists in the response (if not, remove this column)
                 size: 60,
             },
             {
@@ -68,12 +68,12 @@ const AllUsers = () => {
     );
 
     useEffect(() => {
-        getUsers();
-    }, [])
+        getUsers();  // Fetch users when the component mounts
+    }, []);
 
     const table = useMantineReactTable({
         columns,
-        data: services,
+        data: services,  // Set data to services (user data)
         enableRowSelection: false,
         enableColumnOrdering: false,
         enableGlobalFilter: true,
@@ -94,6 +94,7 @@ const AllUsers = () => {
                 </div>
             </div>
         </>
-    )
-}
-export default AllUsers
+    );
+};
+
+export default AllUsers;

@@ -6,18 +6,18 @@ import CIcon from '@coreui/icons-react';
 import { cilCheck, cilPaperPlane, cilTrash, cilList } from '@coreui/icons';
 import { AppSidebar, AppHeader } from '../../../components/index'
 
-const Material = () => {
-    const [services, setServices] = useState([]);
+const Extra = () => {
+    const [Stone, setStone] = useState([]);
     const token = localStorage.getItem('token')
-    async function getUsers() {
-        const res = await axios.get(`${import.meta.env.VITE_BASE_URL}user/materials`, {
+    async function getStone() {
+        const res = await axios.get(`${import.meta.env.VITE_BASE_URL}user/extras`, {
             headers: {
                 Authorization: `Bearer ${token}`
             }
         })
-        const ser = res.data.materials;
+        const ser = res.data.extras;
         console.log(ser, 'ser');
-        setServices(ser);
+        setStone(ser);
     }
 
     async function handleDelete(id) {
@@ -29,7 +29,7 @@ const Material = () => {
                 }
             })
             if (res.status === 200) {
-                getUsers()
+                getStone()
             }
         }
         else {
@@ -40,15 +40,11 @@ const Material = () => {
     const columns = useMemo(
         () => [
             {
-                header: 'Material',
-                accessorKey: 'material',
+                header: 'Remark',
+                accessorKey: 'remark',
                 size: 150,
             },
-            {
-                header: 'Vehicle no.',
-                accessorKey: 'vehicle_number',
-                size: 150,
-            },
+         
             {
                 header: 'Full Details',
                 size: 60,
@@ -64,12 +60,12 @@ const Material = () => {
     );
 
     useEffect(() => {
-        getUsers();
+        getStone();
     }, [])
 
     const table = useMantineReactTable({
         columns,
-        data: services,
+        data: Stone,
         enableRowSelection: false,
         enableColumnOrdering: false,
         enableGlobalFilter: true,
@@ -84,7 +80,7 @@ const Material = () => {
                 <AppHeader />
                 <div className="body flex-grow-1">
                     <div className='mx-3 mb-2'>
-                        <h4 className='mb-2'>Material</h4>
+                        <h4 className='mb-2'>Stones</h4>
                         <MantineReactTable table={table} />
                     </div>
                 </div>
@@ -92,4 +88,4 @@ const Material = () => {
         </>
     )
 }
-export default Material;
+export default Extra;
