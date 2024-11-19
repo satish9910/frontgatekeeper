@@ -1,8 +1,8 @@
 {
-  "name": "justgyde-admin",
+  "name": "GateKeeper-admin",
   "version": "1.0.0",
   "homepage": ".",
-  "author": "kashish",
+  "author": "satish",
   "scripts": {
     "build": "vite build",
     "lint": "eslint \"src/**/*.js\"",

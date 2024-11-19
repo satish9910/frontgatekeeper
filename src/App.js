@@ -5,7 +5,7 @@ import { useSelector } from 'react-redux'
 import { CSpinner, useColorModes } from '@coreui/react'
 import './scss/style.scss'
 import AllUsers from './views/pages/users/AllUsers'
-import AllVendors from './views/pages/vendors/AllVendors'
+import Material from './views/pages/vendors/Material'
 import CreateVendor from './views/pages/vendors/CreateVendor'
 import CreateUser from './views/pages/users/CreateUser'
 import KycDetails from './views/pages/vendors/KycDetails'
@@ -57,7 +57,7 @@ const App = () => {
           <Route exact path="/404" name="Page 404" element={<Page404 />} />
           <Route path='/users' element={<AllUsers />} />
           <Route path='/user/create' element={<CreateUser />} />
-          <Route path='/vendors' element={<AllVendors />} />
+          <Route path='/material' element={<Material/>} />
           <Route path='/vendor/create' element={<CreateVendor />} />
           <Route path='/vendor/kyc/:id' element={<KycDetails />} />
           <Route path='/vendor/getAllServicesByVendorId/:id' element={<ServicesDetails />} />

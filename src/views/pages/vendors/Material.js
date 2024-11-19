@@ -6,7 +6,7 @@ import CIcon from '@coreui/icons-react';
 import { cilCheck, cilPaperPlane, cilTrash, cilList } from '@coreui/icons';
 import { AppSidebar, AppHeader } from '../../../components/index'
 
-const AllVendors = () => {
+const Material = () => {
     const [services, setServices] = useState([]);
     const token = localStorage.getItem('token')
     async function getUsers() {
@@ -97,7 +97,7 @@ const AllVendors = () => {
                 <AppHeader />
                 <div className="body flex-grow-1">
                     <div className='mx-3 mb-2'>
-                        <h4 className='mb-2'>ALL VENDORS</h4>
+                        <h4 className='mb-2'>Material</h4>
                         <MantineReactTable table={table} />
                     </div>
                 </div>
@@ -105,4 +105,4 @@ const AllVendors = () => {
         </>
     )
 }
-export default AllVendors
+export default Material;

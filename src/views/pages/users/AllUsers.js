@@ -44,17 +44,17 @@ const AllUsers = () => {
                 size: 150,
             },
             {
-                header: 'Email',
-                accessorKey: 'email',
+                header: 'Mobile',
+                accessorKey: 'mobile',
                 size: 150,
             },
             {
-                header: 'Coins',
-                accessorKey: 'totalCoins',
+                header: 'EmployeeId',
+                accessorKey: 'employeeId',
                 size: 60,
             },
             {
-                header: 'Orders',
+                header: 'Edit',
                 size: 60,
                 accessorFn: (dataRow) => <Link to={`/user/orders/${dataRow._id}`}><CIcon icon={cilPaperPlane} /></Link>
             },

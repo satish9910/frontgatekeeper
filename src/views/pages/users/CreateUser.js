@@ -19,7 +19,7 @@ const CreateUser = () => {
 
     async function handleSubmit(e) {
         e.preventDefault()
-        if (!formData.name || !formData.email || !formData.mobile || !formData.password) {
+        if (!formData.name || !formData.employeeId || !formData.mobile || !formData.password) {
             alert('Please fill all fields')
             return
         }
@@ -62,11 +62,11 @@ const CreateUser = () => {
                                         />
                                     </div>
                                     <div className="mb-4">
-                                        <label htmlFor="email" className="form-label">Email</label>
+                                        <label htmlFor="employeeId" className="form-label">Employee Id</label>
                                         <input
                                             type="text"
-                                            name="email"
-                                            placeholder="Email"
+                                            name="employeeId"
+                                            placeholder="employeeId"
                                             className="form-control"
                                             onChange={handleChange}
                                         />
