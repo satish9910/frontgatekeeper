@@ -15,26 +15,26 @@ const Dashboard = () => {
   useEffect(() => {
     async function fetchUsersAndVendors() {
       const token = localStorage.getItem('token')
-      const users = await axios.get(`${import.meta.env.VITE_BASE_URL}admin/getAllUsers`, {
+      const users = await axios.get(`${import.meta.env.VITE_BASE_URL}admin/users`, {
         headers: {
           Authorization: `Bearer ${token}`
         }
       })
-      console.log();
+    
       setTotalUsers(users.data.users.length)
-      const vendors = await axios.get(`${import.meta.env.VITE_BASE_URL}admin/getAllVendors`, {
-        headers: {
-          Authorization: `Bearer ${token}`
-        }
-      })
-      setTotalVendors(vendors.data.vendors.length)
+      // const vendors = await axios.get(`${import.meta.env.VITE_BASE_URL}admin/getAllVendors`, {
+      //   headers: {
+      //     Authorization: `Bearer ${token}`
+      //   }
+      // })
+      // setTotalVendors(vendors.data.vendors.length)
     }
     fetchUsersAndVendors()
   }, [])
 
   return (
     <>
-      <CCard
+      {/* <CCard
         textBgColor={'primary'}
         className="mb-4 mt-3"
         style={{ maxWidth: '18rem' }}
@@ -43,7 +43,7 @@ const Dashboard = () => {
         <CCardBody>
           <CCardTitle>Vendors: {totalVendors}</CCardTitle>
         </CCardBody>
-      </CCard>
+      </CCard> */}
       <CCard
         textBgColor={'secondary'}
         className="mb-3"

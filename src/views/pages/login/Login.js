@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+
 import {
   CButton,
   CCard,
@@ -16,14 +17,18 @@ import {
 import CIcon from '@coreui/icons-react'
 import { cilLockLocked, cilUser } from '@coreui/icons'
 import axios from 'axios'
+import Loader from '../../../Loader'
 
 const Login = () => {
   const navigate = useNavigate();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
   
   async function handleLogin() {
-    // try {
+    // Prevent the default form submission
+    setLoading(true);
+    try {
       const creds = {
         phone: username,
         password: password,
@@ -36,28 +41,35 @@ const Login = () => {
       console.log(response, 'res')
       localStorage.setItem('user', JSON.stringify(response.data.user));
       localStorage.setItem('token', response.data.token);
+       
+
+          
   
-      // if (response.status === 200) {
-      //   // Log the response data for debugging
-      //   console.log(response.data);
+      if (response.status === 200) {
+       // Log the response data for debugging
+        console.log(response.data);
   
-      //   // Store the user object and token in localStorage
-      //   localStorage.setItem('user', JSON.stringify(response.data.user)); // Storing user data
-      //   localStorage.setItem('token', response.data.token); // Storing the token
+        // Store the user object and token in localStorage
+        localStorage.setItem('user', JSON.stringify(response.data.user)); // Storing user data
+        localStorage.setItem('token', response.data.token); // Storing the token
   
-      //   // Navigate to the dashboard
-      //   navigate("/dashboard");
-      // } else {
-      //   alert("Login failed: Invalid credentials.");
-      // }
+     // Navigate to the dashboard
+        navigate("/dashboard");
+      } else {
+        alert("Login failed: Invalid credentials.");
+      }
     } 
-    // catch (error) {
-    //   console.error("Login error:", error);
-    //   alert("Login Failed! Please try again.");
-    // }
+    catch (error) {
+      console.error("Login error:", error);
+      alert("Login Failed! Please try again.");
+      setLoading(false);
+    }
+  }
   
 
   return (
+    <>
+    {loading && <Loader />}
     <div className="bg-body-tertiary min-vh-100 d-flex flex-row align-items-center">
       <CContainer>
         <CRow className="justify-content-center">
@@ -106,6 +118,7 @@ const Login = () => {
         </CRow>
       </CContainer>
     </div>
+    </>
   );
 
 };

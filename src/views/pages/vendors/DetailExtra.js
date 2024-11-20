@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
+import { AppHeader, AppSidebar } from '../../../components';
 
 const DetailExtra = () => {
   const [Stone, setStone] = useState(null); // Handle Stone data
@@ -30,7 +31,14 @@ const DetailExtra = () => {
   }, []); // Dependency array ensures this runs only once
 
   return (
-    <div className="text-white" style={{ marginTop: '50px', padding: '20px' }}>
+
+    <>
+    
+    <AppSidebar />
+     <div className="wrapper d-flex flex-column min-vh-100">
+    <AppHeader />
+
+    <div className="text-white" style={{ marginTop: '10px', padding: '20px' }}>
       <h1>Detail Extra</h1>
       {Stone ? (
         <div style={{ marginTop: '20px' }}>
@@ -46,8 +54,8 @@ const DetailExtra = () => {
           
             <div style={{ marginBottom: '10px' }}>
              <audio controls>
-                <source src={`${import.meta.env.VITE_BASE_URL}uploads/${Stone.audio}`} type="audio/ogg"/>
-                <source src={`${import.meta.env.VITE_BASE_URL}uploads/${Stone.audio}`} type="audio/mpeg"/>
+                <source src={`${Stone.audio}`} type="audio/ogg"/>
+                {/* <source src={`${import.meta.env.VITE_BASE_URL}uploads/${Stone.audio}`} type="audio/mpeg"/> */}
                 Your browser does not support the audio element.
              </audio>
             </div>
@@ -72,7 +80,7 @@ const DetailExtra = () => {
                 }}
               >
                 <img
-                  src={`${import.meta.env.VITE_BASE_URL}uploads/${Stone.vehicle_picture}`}
+                  src={`${Stone.vehicle_picture}`}
                   alt="Vehicle Picture"
                   style={{
                     maxWidth: '100%',
@@ -93,7 +101,7 @@ const DetailExtra = () => {
                 }}
               >
                 <img
-                  src={`${import.meta.env.VITE_BASE_URL}uploads/${Stone.weight_picture}`}
+                  src={`${Stone.weight_picture}`}
                   alt="Weight Picture"
                   style={{
                     maxWidth: '100%',
@@ -114,7 +122,7 @@ const DetailExtra = () => {
                 }}
               >
                 <img
-                  src={`${import.meta.env.VITE_BASE_URL}uploads/${Stone.slip_picture}`}
+                  src={`${Stone.slip_picture}`}
                   alt="Slip Picture"
                   style={{
                     maxWidth: '100%',
@@ -131,6 +139,8 @@ const DetailExtra = () => {
         <p>Loading Stone details...</p>
       )}
     </div>
+  </div>
+  </>
   );
 };
 

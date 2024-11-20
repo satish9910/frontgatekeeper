@@ -3,21 +3,30 @@ import React, { useEffect, useMemo, useState } from 'react'
 import { Link } from 'react-router-dom';
 import { MantineReactTable, useMantineReactTable } from 'mantine-react-table';
 import CIcon from '@coreui/icons-react';
-import { cilCheck, cilPaperPlane, cilTrash, cilList } from '@coreui/icons';
+import { cilCheck, cilPaperPlane, cilTrash, cilList, cilColorBorder, cilDescription } from '@coreui/icons';
 import { AppSidebar, AppHeader } from '../../../components/index'
+import Loader from '../../../Loader';
 
 const Extra = () => {
     const [Stone, setStone] = useState([]);
     const token = localStorage.getItem('token')
+    const [loading, setLoading] = useState(false);
     async function getStone() {
-        const res = await axios.get(`${import.meta.env.VITE_BASE_URL}user/extras`, {
-            headers: {
-                Authorization: `Bearer ${token}`
-            }
-        })
-        const ser = res.data.extras;
-        console.log(ser, 'ser');
-        setStone(ser);
+        setLoading(true);
+        try {
+            const res = await axios.get(`${import.meta.env.VITE_BASE_URL}user/extras`, {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            });
+            const ser = res.data.extras;
+            console.log(ser, 'ser');
+            setStone(ser);
+        } catch (error) {
+            console.error('Error fetching data:', error);
+        } finally {
+            setLoading(false);
+        }
     }
 
     async function handleDelete(id) {
@@ -48,12 +57,17 @@ const Extra = () => {
             {
                 header: 'Full Details',
                 size: 60,
-                Cell: ({ row }) => <Link to={`detail/${row.original._id}`} style={{ textDecoration: 'none' }}><CIcon icon={cilPaperPlane} /></Link>,
+                Cell: ({ row }) => <Link to={`detail/${row.original._id}`} style={{ textDecoration: 'none' }}><CIcon icon={cilDescription} /></Link>,
             },
+            // {
+            //     header: 'Delete',
+            //     size: 60,
+            //     accessorFn: (dataRow) => <CIcon icon={cilTrash} onClick={() => handleDelete(dataRow._id)} style={{ cursor: 'pointer', color: "red" }} />
+            // },
             {
-                header: 'Delete',
+                header: 'Edit',
                 size: 60,
-                accessorFn: (dataRow) => <CIcon icon={cilTrash} onClick={() => handleDelete(dataRow._id)} style={{ cursor: 'pointer', color: "red" }} />
+                Cell: ({ row }) => <Link to={`extraEdit/${row.original._id}`} style={{ textDecoration: 'none' }}><CIcon icon={cilColorBorder} /></Link>,
             },
         ],
         [],
@@ -79,6 +93,7 @@ const Extra = () => {
             <div className="wrapper d-flex flex-column min-vh-100">
                 <AppHeader />
                 <div className="body flex-grow-1">
+                {loading && <Loader />}
                     <div className='mx-3 mb-2'>
                         <h4 className='mb-2'>Stones</h4>
                         <MantineReactTable table={table} />

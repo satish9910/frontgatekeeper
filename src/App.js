@@ -20,6 +20,9 @@ import CreateUser from './views/pages/users/CreateUser'
 import DetailMaterial from './views/pages/vendors/DetailMaterial'
 import DetailStone from './views/pages/vendors/DetailStone'
 import DetailExtra from './views/pages/vendors/DetailExtra'
+import EditMaterial from './views/pages/vendors/Editmaterial'
+import EditStone from './views/pages/vendors/EditStone'
+import EditExtra from './views/pages/vendors/EditExtra'
 // Containers
 const DefaultLayout = React.lazy(() => import('./layout/DefaultLayout'))
 
@@ -59,6 +62,11 @@ const App = () => {
           <Route path='/user/create' element={<CreateUser />} />
           <Route path='/material' element={<Material/>} />
           <Route path='/material/detail/:id' element={<DetailMaterial/>} />
+          <Route path='/material/materialEdit/:id' element={<EditMaterial/>} />
+          <Route path='/stone/stoneEdit/:id' element={<EditStone/>} />
+          <Route path='/extra/extraEdit/:id' element={<EditExtra/>} />
+
+
           <Route path='/stone/detail/:id' element={<DetailStone/>} />
           <Route path='/extra/detail/:id' element={<DetailExtra/>} />
           <Route path='/stone' element={<Stone/>} />

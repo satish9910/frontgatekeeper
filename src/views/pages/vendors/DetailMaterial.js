@@ -36,7 +36,7 @@ const DetailMaterial = () => {
      <AppSidebar />
       <div className="wrapper d-flex flex-column min-vh-100">
      <AppHeader />
-    <div className="text-white" style={{ marginTop: '50px', padding: '20px' }}>
+    <div className="text-white" style={{ marginTop: '10px', padding: '20px' }}>
       <h1>Detail Material</h1>
       {material ? (
         <div style={{ marginTop: '20px' }}>
@@ -85,7 +85,7 @@ const DetailMaterial = () => {
                 }}
               >
                 <img
-                  src={`${import.meta.env.VITE_BASE_URL}uploads/${material.vehicle_picture}`}
+                  src={`${material.vehicle_picture}`}
                   alt="Vehicle Picture"
                   style={{
                     maxWidth: '100%',
@@ -106,7 +106,7 @@ const DetailMaterial = () => {
                 }}
               >
                 <img
-                  src={`${import.meta.env.VITE_BASE_URL}uploads/${material.weight_picture}`}
+                  src={`${material.weight_picture}`}
                   alt="Weight Picture"
                   style={{
                     maxWidth: '100%',
@@ -127,7 +127,7 @@ const DetailMaterial = () => {
                 }}
               >
                 <img
-                  src={`${import.meta.env.VITE_BASE_URL}uploads/${material.slip_picture}`}
+                  src={`${material.slip_picture}`}
                   alt="Slip Picture"
                   style={{
                     maxWidth: '100%',

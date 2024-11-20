@@ -3,13 +3,16 @@ import React, { useEffect, useMemo, useState } from 'react'
 import { Link } from 'react-router-dom';
 import { MantineReactTable, useMantineReactTable } from 'mantine-react-table';
 import CIcon from '@coreui/icons-react';
-import { cilCheck, cilPaperPlane, cilTrash, cilList } from '@coreui/icons';
+import { cilCheck, cilPaperPlane, cilTrash, cilList, cilDescription, cilColorBorder } from '@coreui/icons';
 import { AppSidebar, AppHeader } from '../../../components/index'
+import Loader from '../../../Loader';
 
 const Stones = () => {
     const [Stone, setStone] = useState([]);
+    const [ loading, setLoading ] = useState(false);
     const token = localStorage.getItem('token')
     async function getStone() {
+        setLoading(true);
         const res = await axios.get(`${import.meta.env.VITE_BASE_URL}user/stones`, {
             headers: {
                 Authorization: `Bearer ${token}`
@@ -18,9 +21,11 @@ const Stones = () => {
         const ser = res.data.stones;
         console.log(ser, 'ser');
         setStone(ser);
+        setLoading(false);
     }
 
     async function handleDelete(id) {
+
         const confirmed = confirm('Confirm to delete?')
         if (confirmed) {
             const res = await axios.delete(`${import.meta.env.VITE_BASE_URL}admin/deleteVendorById/${id}`, {
@@ -52,12 +57,17 @@ const Stones = () => {
             {
                 header: 'Full Details',
                 size: 60,
-                Cell: ({ row }) => <Link to={`detail/${row.original._id}`} style={{ textDecoration: 'none' }}><CIcon icon={cilPaperPlane} /></Link>,
+                Cell: ({ row }) => <Link to={`detail/${row.original._id}`} style={{ textDecoration: 'none' }}><CIcon icon={cilDescription} /></Link>,
             },
+            // {
+            //     header: 'Delete',
+            //     size: 60,
+            //     accessorFn: (dataRow) => <CIcon icon={cilTrash} onClick={() => handleDelete(dataRow._id)} style={{ cursor: 'pointer', color: "red" }} />
+            // },
             {
-                header: 'Delete',
+                header: 'Edit',
                 size: 60,
-                accessorFn: (dataRow) => <CIcon icon={cilTrash} onClick={() => handleDelete(dataRow._id)} style={{ cursor: 'pointer', color: "red" }} />
+                Cell: ({ row }) => <Link to={`stoneEdit/${row.original._id}`} style={{ textDecoration: 'none' }}><CIcon icon={cilColorBorder} /></Link>,
             },
         ],
         [],
@@ -81,6 +91,7 @@ const Stones = () => {
         <>
             <AppSidebar />
             <div className="wrapper d-flex flex-column min-vh-100">
+                {loading && <Loader />}
                 <AppHeader />
                 <div className="body flex-grow-1">
                     <div className='mx-3 mb-2'>

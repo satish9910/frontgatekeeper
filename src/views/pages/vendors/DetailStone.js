@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
+import { AppHeader, AppSidebar } from '../../../components';
 
 const DetailStone = () => {
   const [Stone, setStone] = useState(null); // Handle Stone data
@@ -30,7 +31,13 @@ const DetailStone = () => {
   }, []); // Dependency array ensures this runs only once
 
   return (
-    <div className="text-white" style={{ marginTop: '50px', padding: '20px' }}>
+
+    <>
+    
+    <AppSidebar />
+     <div className="wrapper d-flex flex-column min-vh-100">
+    <AppHeader />
+    <div className="text-white" style={{ marginTop: '10px', padding: '20px' }}>
       <h1>Detail Stone</h1>
       {Stone ? (
         <div style={{ marginTop: '20px' }}>
@@ -82,7 +89,9 @@ const DetailStone = () => {
                   src={`${Stone.vehicle_picture}`}
                   alt="Vehicle Picture"
                   style={{
-                   
+                    maxWidth: '100%',
+                
+                    maxHeight: '150px',
                     borderRadius: '8px',
                   }}
                 />
@@ -103,6 +112,8 @@ const DetailStone = () => {
                   alt="Weight Picture"
                   style={{
                     maxWidth: '100%',
+  
+                    maxHeight: '150px',
                     
                     borderRadius: '8px',
                   }}
@@ -124,6 +135,7 @@ const DetailStone = () => {
                   alt="Slip Picture"
                   style={{
                     maxWidth: '100%',
+                    maxHeight: '150px',
                     borderRadius: '8px',
                   }}
                 />
@@ -136,6 +148,8 @@ const DetailStone = () => {
         <p>Loading Stone details...</p>
       )}
     </div>
+    </div>
+    </>
   );
 };
 
