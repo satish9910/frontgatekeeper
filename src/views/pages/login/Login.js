@@ -23,7 +23,7 @@ const Login = () => {
   const [password, setPassword] = useState("");
   
   async function handleLogin() {
-    try {
+    // try {
       const creds = {
         phone: username,
         password: password,
@@ -34,7 +34,7 @@ const Login = () => {
         creds
       );
   
-      // if (response.status === 200) {
+      if (response.status === 200) {
         // Log the response data for debugging
         console.log(response.data);
   
@@ -44,12 +44,15 @@ const Login = () => {
   
         // Navigate to the dashboard
         navigate("/dashboard");
-      
-    } catch (error) {
-      console.error("Login error:", error);
-      alert("Login Failed! Please try again.");
-    }
-  }
+      } else {
+        alert("Login failed: Invalid credentials.");
+      }
+    } 
+    // catch (error) {
+    //   console.error("Login error:", error);
+    //   alert("Login Failed! Please try again.");
+    // }
+  
 
   return (
     <div className="bg-body-tertiary min-vh-100 d-flex flex-row align-items-center">
@@ -101,6 +104,7 @@ const Login = () => {
       </CContainer>
     </div>
   );
+
 };
 
 export default Login;
