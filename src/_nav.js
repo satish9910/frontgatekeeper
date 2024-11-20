@@ -54,12 +54,12 @@ const _nav = [
     icon: <CIcon icon={cilDrop} customClassName="nav-icon" />,
   },
 
-  // {
-  //   component: CNavItem,
-  //   name: 'FAQs',
-  //   to: '/faq',
-  //   icon: <CIcon icon={cilDrop} customClassName="nav-icon" />,
-  // },
+  {
+    component: CNavItem,
+    name: 'Create Bill',
+    to: '/createbill',
+    icon: <CIcon icon={cilDrop} customClassName="nav-icon" />,
+  },
   // {
   //   component: CNavItem,
   //   name: 'City',

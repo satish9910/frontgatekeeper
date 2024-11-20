@@ -23,6 +23,8 @@ import DetailExtra from './views/pages/vendors/DetailExtra'
 import EditMaterial from './views/pages/vendors/Editmaterial'
 import EditStone from './views/pages/vendors/EditStone'
 import EditExtra from './views/pages/vendors/EditExtra'
+import CreateBill from './views/pages/createBill/CreateBill'
+import PreviewBill from './views/pages/createBill/PreviewBill'
 // Containers
 const DefaultLayout = React.lazy(() => import('./layout/DefaultLayout'))
 
@@ -65,6 +67,8 @@ const App = () => {
           <Route path='/material/materialEdit/:id' element={<EditMaterial/>} />
           <Route path='/stone/stoneEdit/:id' element={<EditStone/>} />
           <Route path='/extra/extraEdit/:id' element={<EditExtra/>} />
+          <Route path='/createbill' element={<CreateBill/>} />
+          <Route path='/previewbill' element={<PreviewBill/>} />
 
 
           <Route path='/stone/detail/:id' element={<DetailStone/>} />
