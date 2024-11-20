@@ -34,7 +34,7 @@ const Login = () => {
         creds
       );
   
-      if (response.status === 200) {
+      // if (response.status === 200) {
         // Log the response data for debugging
         console.log(response.data);
   
@@ -44,9 +44,7 @@ const Login = () => {
   
         // Navigate to the dashboard
         navigate("/dashboard");
-      } else {
-        alert("Login failed: Invalid credentials.");
-      }
+      
     } catch (error) {
       console.error("Login error:", error);
       alert("Login Failed! Please try again.");
