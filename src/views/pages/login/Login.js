@@ -33,20 +33,23 @@ const Login = () => {
         `${import.meta.env.VITE_BASE_URL}auth/login`, 
         creds
       );
+      console.log(response, 'res')
+      localStorage.setItem('user', JSON.stringify(response.data.user));
+      localStorage.setItem('token', response.data.token);
   
-      if (response.status === 200) {
-        // Log the response data for debugging
-        console.log(response.data);
+      // if (response.status === 200) {
+      //   // Log the response data for debugging
+      //   console.log(response.data);
   
-        // Store the user object and token in localStorage
-        localStorage.setItem('user', JSON.stringify(response.data.user)); // Storing user data
-        localStorage.setItem('token', response.data.token); // Storing the token
+      //   // Store the user object and token in localStorage
+      //   localStorage.setItem('user', JSON.stringify(response.data.user)); // Storing user data
+      //   localStorage.setItem('token', response.data.token); // Storing the token
   
-        // Navigate to the dashboard
-        navigate("/dashboard");
-      } else {
-        alert("Login failed: Invalid credentials.");
-      }
+      //   // Navigate to the dashboard
+      //   navigate("/dashboard");
+      // } else {
+      //   alert("Login failed: Invalid credentials.");
+      // }
     } 
     // catch (error) {
     //   console.error("Login error:", error);
