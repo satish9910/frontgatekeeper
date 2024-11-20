@@ -34,7 +34,7 @@ const Login = () => {
         creds
       );
   
-      if (response.data.valid) {
+      if (response.status === 200) {
         // Log the response data for debugging
         console.log(response.data);
   
